@@ -1,6 +1,6 @@
-document.getElementById("studentForm").addEventListener("submit", async function (e) {
+document.getElementById("studentForm").addEventListener("submit", async function(e) {
     e.preventDefault();
-
+    
     const formData = {
         name: this.name.value,
         age: this.age.value,
@@ -8,21 +8,16 @@ document.getElementById("studentForm").addEventListener("submit", async function
     };
 
     try {
-        const response = await fetch("https://script.google.com/macros/s/AKfycbwrUHJKE4Ob4xU-kZfCsA3hy_UbyjQ7sG290Og0Lge2FYc41gat7ARC7te8b_PoROzJ/exec", {
+        const response = await fetch("https://script.google.com/macros/s/AKfycbxRkLJygXrU6PnuIz_cm_mYSpEXnCbu71mI8Vb83ivoORsnD-5X9K6-tZuEZ3is9omRmQ/exec", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData),
+            body: JSON.stringify(formData)
         });
 
         const result = await response.json();
-
-        if (result.status === "success") {
-            alert("✅ Form submitted successfully!");
-            this.reset(); // Clear the form after successful submission
-        } else {
-            alert("❌ Error: " + result.message);
-        }
+        alert(result.message);
+        this.reset();
     } catch (error) {
-        alert("❌ Submission failed: " + error);
+        alert("Error submitting form. Please try again!");
     }
 });
