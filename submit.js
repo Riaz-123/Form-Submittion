@@ -8,15 +8,21 @@ document.getElementById("studentForm").addEventListener("submit", async function
     };
 
     try {
-        const response = await fetch("https://script.google.com/macros/s/AKfycbwN3SSqIhIBj93HlZ3gNjyicoSwTdEsIAXV5djVpZw538wxMMye_PvDaJXOBMPPv6I/exec", {
+        const response = await fetch("https://script.google.com/macros/s/AKfycbwrUHJKE4Ob4xU-kZfCsA3hy_UbyjQ7sG290Og0Lge2FYc41gat7ARC7te8b_PoROzJ/exec", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),
         });
 
         const result = await response.json();
-        alert(result.message);
+
+        if (result.status === "success") {
+            alert("✅ Form submitted successfully!");
+            this.reset(); // Clear the form after successful submission
+        } else {
+            alert("❌ Error: " + result.message);
+        }
     } catch (error) {
-        alert("Error submitting form: " + error);
+        alert("❌ Submission failed: " + error);
     }
 });
