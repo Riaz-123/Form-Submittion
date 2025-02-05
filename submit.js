@@ -1,12 +1,22 @@
-export default async function handler(req, res) {
-    if (req.method === 'POST') {
-        const { name, age, email } = req.body;
+document.getElementById("studentForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-        console.log("New Form Submission:", { name, age, email });
+    const formData = {
+        name: this.name.value,
+        age: this.age.value,
+        email: this.email.value
+    };
 
-        // You can store this data in a database or send an email notification
-        return res.status(200).json({ success: true, message: "Form submitted successfully!" });
-    } else {
-        return res.status(405).json({ error: "Method Not Allowed" });
+    try {
+        const response = await fetch("https://script.google.com/macros/s/AKfycbwN3SSqIhIBj93HlZ3gNjyicoSwTdEsIAXV5djVpZw538wxMMye_PvDaJXOBMPPv6I/exec", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+        });
+
+        const result = await response.json();
+        alert(result.message);
+    } catch (error) {
+        alert("Error submitting form: " + error);
     }
-}
+});
